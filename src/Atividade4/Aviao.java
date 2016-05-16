@@ -17,12 +17,12 @@ public class Aviao extends Thread {
 	}
 	
 	public void voar(){
+		System.out.println("O vôo " + nome + " está voando.");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("O vôo " + nome + " está voando.");
 	}
 	
 	public void aterrissar() throws InterruptedException{

@@ -3,7 +3,7 @@ package Atividade4;
 public class Aeroporto extends Thread{
 	
 	private String nome;
-	private boolean estadoPista = true;
+	private boolean estadoPista;
 
 	public Aeroporto(String nome) {
 		super();
@@ -12,20 +12,21 @@ public class Aeroporto extends Thread{
 	
 	public synchronized void aguardarPistaDisponivel() throws InterruptedException{
 		while (!estadoPista){
-			wait();
+			this.wait();
 		}
+		estadoPista = !estadoPista;
 	}
 	
 	public synchronized void alterarEstadoPista() throws InterruptedException{
-		Thread.sleep(3000);
 		this.estadoPista = !estadoPista;
 		System.out.println("Disponibilidade da pista: " + estadoPista);
-		notifyAll();
+		this.notifyAll();
 	}
 	
 	public void run(){
 		while (true){
 			try {
+				Thread.sleep(3000);
 				alterarEstadoPista();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
